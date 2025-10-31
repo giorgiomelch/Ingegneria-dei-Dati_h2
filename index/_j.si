@@ -1,13 +1,9 @@
     version 9.10.0
     min version 9.10.0
-    number of documents 19
+    number of documents 50
     uses compound file true
     has blocks false
     diagnostics 8
-      key os.version
-      value 6.8.0-87-generic
-      key os.arch
-      value amd64
       key os
       value Linux
       key java.vendor
@@ -15,15 +11,19 @@
       key java.runtime.version
       value 21.0.8+9-Ubuntu-0ubuntu124.04.1
       key timestamp
-      value 1761839781100
+      value 1761931126153
       key source
       value flush
       key lucene.version
       value 9.10.0
+      key os.version
+      value 6.8.0-87-generic
+      key os.arch
+      value amd64
     attributes 0
     files 2
-      file _e.si
-      file _e.scf
-    id [ee a8 90 46 8d 90 8 be 56 9c f 31 14 aa a6 21]
+      file _j.si
+      file _j.scf
+    id [32 19 1e a8 49 2c a3 34 c4 30 dd ea f5 9f 6a 29]
     sort 0
-checksum 00000000000468247970
+checksum 00000000002192123043
