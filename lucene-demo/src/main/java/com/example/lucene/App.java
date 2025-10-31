@@ -2,6 +2,7 @@ package com.example.lucene;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.it.ItalianAnalyzer;
+import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -56,7 +57,7 @@ public class App {
 
     private static PerFieldAnalyzerWrapper getAnalyzer() {
         Map<String, Analyzer> analyzerPerField = new HashMap<>();
-        analyzerPerField.put("filename", new StandardAnalyzer());
+        analyzerPerField.put("filename", new SimpleAnalyzer());
         analyzerPerField.put("content", new ItalianAnalyzer()); 
         
         return new PerFieldAnalyzerWrapper(new StandardAnalyzer(), analyzerPerField);
@@ -74,12 +75,15 @@ public class App {
         config.setCodec(new SimpleTextCodec());
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE); 
 
+        long start = System.nanoTime();
         try (IndexWriter writer = new IndexWriter(indexDirectory, config)) {
             // indicizza i documenti
             indexTextFiles(writer, Paths.get(DATA_DIR));
         }
+        long elapsedMs = (System.nanoTime() - start) / 1_000_000;
 
         System.out.println("Indicizzazione completata con successo.");
+        System.out.println("Tempo di indicizzazione: " + elapsedMs + " ms");
     }
 
     private static void search(Directory indexDirectory) throws IOException, ParseException {
@@ -123,7 +127,7 @@ public class App {
                 System.out.println("Trovati " + hits.length + " risultati.");
                 for (int i = 0; i < hits.length; ++i) {
                     int docId = hits[i].doc;
-                    Document d = searcher.doc(docId); // Utilizza il metodo non deprecato
+                    Document d = searcher.doc(docId);
                     System.out.println((i + 1) + ". " + d.get("filename") + " (Score: " + hits[i].score + ")");
                 }
             }
